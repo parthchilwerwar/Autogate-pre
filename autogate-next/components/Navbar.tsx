@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { APK_URL } from "@/lib/site";
 
 // Floating pill nav. Toggles the `.scrolled` class past 20px — a plain scroll
 // listener, not a GSAP animation, so useEffect is the right tool here.
@@ -22,17 +23,17 @@ export default function Navbar() {
     <nav ref={navRef} id="nav" className="floating-nav">
       <a href="#top" className="flex items-center gap-2.5 text-cream no-underline">
         <Image
-          src="/autogate.png"
-          alt="Autogate Logo"
+          src="/autobudget.png"
+          alt="AutoBudget Logo"
           width={28}
           height={28}
           className="w-[28px] h-[28px] object-contain rounded-lg"
         />
-        <span className="font-serif text-[18px]">Autogate</span>
+        <span className="font-serif text-[18px]">AutoBudget</span>
       </a>
       <HoverBorderGradient
         as="a"
-        href="#cta"
+        href={APK_URL}
         duration={1.2}
         className="inline-flex items-center justify-center rounded-full bg-lime px-5 py-2 font-sans text-[12px] font-bold text-black1"
       >

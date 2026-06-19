@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const buttonVariantsOuter = cva("", {
   variants: {
     variant: {
-      // Autogate brand — lime texture (theme-locked, not dependent on OS dark mode).
+      // AutoBudget brand — lime texture (theme-locked, not dependent on OS dark mode).
       brand:
         "w-full border border-[1px] border-lime/40 bg-gradient-to-b from-lime/70 to-[#9bbd00] p-[1px] transition duration-300 ease-in-out shadow-[0_8px_24px_rgba(202,248,1,0.18)]",
       primary:
@@ -82,6 +82,10 @@ export interface UnifiedButtonProps
     | "icon";
   size?: "default" | "sm" | "lg" | "icon";
   asChild?: boolean;
+  // Render the outer element as something other than <button> (e.g. "a" for a
+  // download link) while keeping the layered texture styling intact.
+  as?: React.ElementType;
+  href?: string;
 }
 
 const TextureButton = React.forwardRef<HTMLButtonElement, UnifiedButtonProps>(
@@ -91,12 +95,13 @@ const TextureButton = React.forwardRef<HTMLButtonElement, UnifiedButtonProps>(
       variant = "primary",
       size = "default",
       asChild = false,
+      as: Tag = "button",
       className,
       ...props
     },
     ref
   ) => {
-    const Comp = asChild ? Slot : "button";
+    const Comp = asChild ? Slot : Tag;
 
     return (
       <Comp

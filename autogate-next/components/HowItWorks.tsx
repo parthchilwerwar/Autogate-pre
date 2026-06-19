@@ -3,7 +3,8 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
-import { BellRing, Zap, Plus, Check } from "lucide-react";
+import { BellRing, Check } from "lucide-react";
+import AndroidStatusBar from "@/components/AndroidStatusBar";
 
 export default function HowItWorks() {
   const root = useRef<HTMLElement>(null);
@@ -45,26 +46,17 @@ export default function HowItWorks() {
         .add(() => {
           if (budgetRef.current) budgetRef.current.textContent = "₹0";
         })
-        // Screen 1
+        // Screen 1: Grant SMS access
         .to("#setup-step-1", { opacity: 1, duration: 0.3 })
         .to("#setup-allow-btn", { scale: 0.95, duration: 0.1, delay: 0.8 })
         .to("#setup-allow-btn", { scale: 1, duration: 0.1 })
 
-        // Transition to Screen 2
+        // Transition to Screen 2 (Set Budget) — the BroadcastReceiver needs no
+        // extra setup step once permission is granted, so we go straight here.
         .to("#setup-screen-1", { x: "-100%", duration: 0.5, ease: "power3.inOut" }, "+=0.2")
         .to("#setup-screen-2", { x: "0%", duration: 0.5, ease: "power3.inOut" }, "<")
         .to("#setup-step-1", { opacity: 0.4, duration: 0.3 }, "<")
         .to("#setup-step-2", { opacity: 1, duration: 0.3 }, "<")
-
-        // Button click on screen 2
-        .to("#setup-shortcut-btn", { scale: 0.95, duration: 0.1, delay: 0.8 })
-        .to("#setup-shortcut-btn", { scale: 1, duration: 0.1 })
-
-        // Transition to Screen 3
-        .to("#setup-screen-2", { x: "-100%", duration: 0.5, ease: "power3.inOut" }, "+=0.2")
-        .to("#setup-screen-3", { x: "0%", duration: 0.5, ease: "power3.inOut" }, "<")
-        .to("#setup-step-2", { opacity: 0.4, duration: 0.3 }, "<")
-        .to("#setup-step-3", { opacity: 1, duration: 0.3 }, "<")
 
         // Animate typing budget amount
         .to(
@@ -101,15 +93,15 @@ export default function HowItWorks() {
           "-=0.2"
         )
 
-        // Button click on Screen 3
+        // Button click on Screen 2
         .to("#setup-continue-btn", { scale: 0.95, duration: 0.1, delay: 0.5 })
         .to("#setup-continue-btn", { scale: 1, duration: 0.1 })
 
-        // Transition to Screen 4
-        .to("#setup-screen-3", { x: "-100%", duration: 0.5, ease: "power3.inOut" }, "+=0.2")
-        .to("#setup-screen-4", { x: "0%", duration: 0.5, ease: "power3.inOut" }, "<")
-        .to("#setup-step-3", { opacity: 0.4, duration: 0.3 }, "<")
-        .to("#setup-step-4", { opacity: 1, duration: 0.3 }, "<");
+        // Transition to Screen 3 (success)
+        .to("#setup-screen-2", { x: "-100%", duration: 0.5, ease: "power3.inOut" }, "+=0.2")
+        .to("#setup-screen-3", { x: "0%", duration: 0.5, ease: "power3.inOut" }, "<")
+        .to("#setup-step-2", { opacity: 0.4, duration: 0.3 }, "<")
+        .to("#setup-step-3", { opacity: 1, duration: 0.3 }, "<");
     },
     { scope: root }
   );
@@ -123,10 +115,11 @@ export default function HowItWorks() {
       <div className="max-w-[1200px] mx-auto">
         <div id="setup-heading" className="text-center mb-24">
           <h2 className="font-serif text-[48px] md:text-[56px] leading-tight mb-4">
-            Setup in <span className="italic text-lime">4 easy steps.</span>
+            Setup in <span className="italic text-lime">3 easy steps.</span>
           </h2>
           <p className="font-sans text-lg text-warm/70 max-w-xl mx-auto">
-            No bank logins, no OAuth flows. Just pure local interception.
+            No bank logins, no OAuth flows. Just a single SMS permission and
+            you&apos;re live.
           </p>
         </div>
 
@@ -134,11 +127,12 @@ export default function HowItWorks() {
           {/* Phone Side (Left) */}
           <div className="relative flex justify-center" style={{ perspective: "1000px" }}>
             <div className="phone-mockup" id="setup-phone">
-              <div className="phone-notch" />
+              <div className="phone-punchhole" />
+              <AndroidStatusBar />
 
               {/* Setup UI inside phone */}
               <div className="absolute inset-0 pt-16 bg-[#090909] flex flex-col z-20 overflow-hidden">
-                {/* Screen 1: Grant Access */}
+                {/* Screen 1: Grant SMS Access */}
                 <div
                   className="absolute inset-0 flex-1 flex flex-col justify-center px-8 text-center pb-12 will-change-transform"
                   id="setup-screen-1"
@@ -150,47 +144,26 @@ export default function HowItWorks() {
                     />
                     <BellRing className="w-10 h-10 text-lime" />
                   </div>
-                  <h3 className="font-serif text-3xl text-cream mb-4">Tracking Access</h3>
+                  <h3 className="font-serif text-3xl text-cream mb-4">SMS Access</h3>
                   <p className="font-sans text-[15px] text-warm/60 mb-12 leading-relaxed">
-                    Autogate securely reads transaction push alerts to track your
-                    spending instantly.
+                    AutoBudget reads transaction SMS to track your spending instantly.
+                    One permission, nothing else to configure.
                   </p>
                   <div
                     className="w-full bg-lime text-black1 font-bold py-4 rounded-[16px] shadow-[0_8px_20px_rgba(202,248,1,0.2)]"
                     id="setup-allow-btn"
                   >
-                    Allow Permissions
+                    Allow SMS Access
                   </div>
                   <div className="w-full text-warm/40 font-medium py-4 mt-2 text-sm">
                     Not Now
                   </div>
                 </div>
 
-                {/* Screen 2: iOS Automation */}
-                <div
-                  className="absolute inset-0 flex-1 flex flex-col justify-center px-8 text-center pb-12 translate-x-full will-change-transform"
-                  id="setup-screen-2"
-                >
-                  <div className="w-24 h-24 bg-[#1C1C1E] rounded-[24px] flex items-center justify-center mx-auto mb-8 border border-white/5 shadow-2xl relative">
-                    <Zap className="w-10 h-10 text-lime drop-shadow-[0_0_15px_rgba(202,248,1,0.4)]" />
-                  </div>
-                  <h3 className="font-serif text-3xl text-cream mb-4">iOS Automation</h3>
-                  <p className="font-sans text-[15px] text-warm/60 mb-12 leading-relaxed">
-                    Install the required Apple Shortcut to seamlessly route intercepted
-                    notifications locally to the app engine.
-                  </p>
-                  <div
-                    className="w-full bg-[#1C1C1E] text-lime border border-lime/30 font-bold py-4 rounded-[16px] shadow-[0_8px_20px_rgba(0,0,0,0.5)] flex items-center justify-center gap-2"
-                    id="setup-shortcut-btn"
-                  >
-                    <Plus className="w-5 h-5" /> Add Shortcut
-                  </div>
-                </div>
-
-                {/* Screen 3: Set Budgets */}
+                {/* Screen 2: Set Budgets */}
                 <div
                   className="absolute inset-0 pt-16 flex-1 flex flex-col px-6 pb-12 translate-x-full will-change-transform"
-                  id="setup-screen-3"
+                  id="setup-screen-2"
                 >
                   <h3 className="font-serif text-3xl text-cream mb-2 mt-4 text-center">
                     Set Budget
@@ -262,10 +235,10 @@ export default function HowItWorks() {
                   </div>
                 </div>
 
-                {/* Screen 4: Live Your Life (Success) */}
+                {/* Screen 3: Live Your Life (Success) */}
                 <div
                   className="absolute inset-0 pt-16 flex-1 flex flex-col justify-center px-6 text-center pb-20 translate-x-full will-change-transform"
-                  id="setup-screen-4"
+                  id="setup-screen-3"
                 >
                   <div className="w-28 h-28 mx-auto mb-8 relative">
                     <div className="absolute inset-0 bg-lime/20 rounded-full blur-xl pulse-slow" />
@@ -279,7 +252,7 @@ export default function HowItWorks() {
                   </p>
                 </div>
 
-                {/* Fake Home Indicator bottom */}
+                {/* Android gesture nav pill */}
                 <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-white/20 rounded-full z-50" />
               </div>
             </div>
@@ -300,8 +273,8 @@ export default function HowItWorks() {
                   Grant Access
                 </h4>
                 <p className="text-warm/70 leading-relaxed text-[15px]">
-                  Allow push notification interception to securely capture
-                  transactions offline.
+                  Allow SMS read access — a single Android permission prompt, nothing
+                  else to configure.
                 </p>
               </div>
             </div>
@@ -318,11 +291,11 @@ export default function HowItWorks() {
               </div>
               <div className="pt-1">
                 <h4 className="font-serif text-[26px] mb-2 text-cream group-hover:text-lime transition-colors">
-                  Add Shortcut
+                  Set Budgets
                 </h4>
                 <p className="text-warm/70 leading-relaxed text-[15px]">
-                  Install an Apple Automation Shortcut to route notifications perfectly
-                  every time.
+                  Define limits. The rule engine maps each transaction to the right
+                  budget automatically.
                 </p>
               </div>
             </div>
@@ -339,32 +312,11 @@ export default function HowItWorks() {
               </div>
               <div className="pt-1">
                 <h4 className="font-serif text-[26px] mb-2 text-cream group-hover:text-lime transition-colors">
-                  Set Budgets
-                </h4>
-                <p className="text-warm/70 leading-relaxed text-[15px]">
-                  Define limits. Local AI adapts its routing rules based on your unique
-                  behavior.
-                </p>
-              </div>
-            </div>
-
-            <div className="w-[2px] h-6 bg-gradient-to-b from-lime/30 to-transparent ml-[23px] opacity-50" />
-
-            {/* Step 4 */}
-            <div
-              className="setup-step flex items-start gap-6 group opacity-40"
-              id="setup-step-4"
-            >
-              <div className="w-12 h-12 rounded-full bg-black1 border-[3px] border-lime/30 group-hover:border-lime group-hover:shadow-[0_0_20px_rgba(202,248,1,0.3)] text-lime flex items-center justify-center font-mono font-bold transition-all shrink-0 duration-500">
-                04
-              </div>
-              <div className="pt-1">
-                <h4 className="font-serif text-[26px] mb-2 text-cream group-hover:text-lime transition-colors">
                   Complete &amp; Live
                 </h4>
                 <p className="text-warm/70 leading-relaxed text-[15px]">
-                  Pay anywhere. Autogate instantly catches the alert and logs exactly
-                  what happened.
+                  Pay anywhere. AutoBudget instantly catches the bank SMS and logs
+                  exactly what happened.
                 </p>
               </div>
             </div>

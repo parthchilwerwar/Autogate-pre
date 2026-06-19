@@ -29,9 +29,9 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Autogate | Your Finances on Autopilot",
+  title: "AutoBudget | Your Finances on Autopilot",
   description:
-    "Autogate natively tracks, locally categorizes with AI, and securely manages your budget without you lifting a finger. Total privacy.",
+    "AutoBudget reads bank SMS natively on Android and categorizes spending with an on-device rule engine — no cloud, no accounts. Total privacy.",
 };
 
 export default function RootLayout({

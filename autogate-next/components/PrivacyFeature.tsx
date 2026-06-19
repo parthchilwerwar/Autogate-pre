@@ -16,9 +16,10 @@ export default function PrivacyFeature() {
           Zero cloud. <span className="italic text-warm/60">Zero compromise.</span>
         </h2>
         <p className="font-sans text-[18px] text-warm/70 max-w-2xl mx-auto leading-relaxed">
-          We believe your financial data is yours alone. By utilizing Apple&apos;s
-          Shortcuts and an offline LLM, Autogate achieves something traditional apps
-          cannot: absolute privacy without sacrificing smart categorization.
+          We believe your financial data is yours alone. By using Android&apos;s
+          native SMS receiver and an on-device rule engine, AutoBudget achieves
+          something traditional apps cannot: absolute privacy without sacrificing
+          instant categorization.
         </p>
       </Reveal>
     </section>

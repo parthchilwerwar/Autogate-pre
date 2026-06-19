@@ -125,14 +125,15 @@ body {
   transition: all 0.3s;
 }
 
-/* Phone Mockup Styling */
+/* Phone Mockup Styling — Android device frame (minimal uniform bezel,
+   standard ~40px corner radius, centered punch-hole camera). */
 .phone-mockup {
   width: 350px;
   height: 740px;
   background: #090909;
-  border-radius: 56px;
-  border: 12px solid #000; /* Deep black inner bezel */
-  box-shadow: 0 0 0 2px #555, /* Titanium frame */ 0 40px 80px rgba(0, 0, 0, 0.9),
+  border-radius: 42px;
+  border: 9px solid #000; /* Thin uniform Android bezel */
+  box-shadow: 0 0 0 2px #2a2a2a, /* Matte aluminium frame */ 0 40px 80px rgba(0, 0, 0, 0.9),
     inset 0 0 10px rgba(255, 255, 255, 0.02), 0 0 120px rgba(202, 248, 1, 0.1);
   position: relative;
   overflow: hidden;
@@ -151,29 +152,39 @@ body {
   pointer-events: none;
   z-index: 100;
 }
-.phone-notch {
+/* Android centered punch-hole front camera. */
+.phone-punchhole {
   position: absolute;
-  top: 12px;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
-  height: 34px;
+  width: 12px;
+  height: 12px;
   background: #000;
-  border-radius: 24px;
+  border-radius: 50%;
   z-index: 60;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03), inset 0 0 6px rgba(0, 0, 0, 1);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset -1px -1px 3px rgba(120, 140, 200, 0.35);
+}
+
+/* Android status bar — clock on the left, signal/wifi/battery on the right.
+   Sits in the top padding the app screens already reserve. */
+.android-statusbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  padding: 12px 22px 0;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0 10px;
-}
-.phone-notch::before {
-  content: "";
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #0c0c20;
-  box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.2);
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: rgba(255, 251, 246, 0.65);
+  z-index: 55;
+  pointer-events: none;
 }
 
 /* Demo Animations */
@@ -193,7 +204,7 @@ body {
   align-items: flex-start;
 }
 
-.llm-engine-overlay {
+.rule-engine-overlay {
   position: absolute;
   bottom: 85px;
   width: 100%;
@@ -276,7 +287,7 @@ body {
 
 @keyframes meteor-effect {
   0% {
-    transform: rotate(215deg) translateX(0);
+    transform: rotate(145deg) translateX(0);
     opacity: 0;
   }
   10% {
@@ -286,7 +297,7 @@ body {
     opacity: 1;
   }
   100% {
-    transform: rotate(215deg) translateX(-700px);
+    transform: rotate(145deg) translateX(-700px);
     opacity: 0;
   }
 }

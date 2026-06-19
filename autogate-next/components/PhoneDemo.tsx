@@ -11,9 +11,10 @@ import {
   Plus,
   PieChart,
   User,
-  Building2,
+  MessageSquare,
   Coffee,
 } from "lucide-react";
+import AndroidStatusBar from "@/components/AndroidStatusBar";
 
 export default function PhoneDemo() {
   const root = useRef<HTMLElement>(null);
@@ -73,23 +74,23 @@ export default function PhoneDemo() {
         .to("#push-notif", { top: "30px", duration: 0.8, ease: "back.out(1.2)" })
         .to("#push-notif", { top: "30px", duration: 1.5 }) // hold
 
-        // Enter Step 2 & LLM Overlay
+        // Enter Step 2 & Rule Engine Overlay
         .to("#step-1", { opacity: 0.4, duration: 0.3 })
         .to("#step-2", { opacity: 1, duration: 0.3 }, "<")
         .to(
-          "#llm-engine",
+          "#rule-engine",
           { opacity: 1, y: 0, pointerEvents: "auto", duration: 0.6, ease: "power3.out" }
         )
 
-        .to("#llm-text", {
-          text: 'Categorized: "Food & Dining" (99.2%)',
+        .to("#rule-text", {
+          text: 'Matched: "Food & Dining"',
           duration: 0.1,
           delay: 1.5,
         })
 
-        // Remove Notification & LLM
+        // Remove SMS notification & rule-engine overlay
         .to("#push-notif", { top: "-150px", duration: 0.5, ease: "power2.in" }, "+=0.8")
-        .to("#llm-engine", { opacity: 0, y: 20, duration: 0.5, ease: "power2.in" }, "<")
+        .to("#rule-engine", { opacity: 0, y: 20, duration: 0.5, ease: "power2.in" }, "<")
 
         // Enter Step 3 & Update UI
         .to("#step-2", { opacity: 0.4, duration: 0.3 })
@@ -148,9 +149,9 @@ export default function PhoneDemo() {
               <span className="italic text-warm/50">in real-time.</span>
             </h2>
             <p className="font-sans text-lg text-warm leading-relaxed">
-              Unlike traditional trackers that poll APIs every 24 hours, Autogate
-              intercepts push notifications instantly and uses a 4-bit quantized AI
-              model to organize it offline.
+              Unlike traditional trackers that poll APIs every 24 hours, AutoBudget&apos;s
+              SMS receiver catches bank messages the instant they arrive and sorts
+              them with an on-device rule engine — fully offline.
             </p>
           </div>
 
@@ -161,10 +162,11 @@ export default function PhoneDemo() {
             >
               <div className="font-mono text-[24px] text-lime font-light">01</div>
               <div>
-                <h4 className="font-serif text-[22px] mb-2">Native Interception</h4>
+                <h4 className="font-serif text-[22px] mb-2">Native SMS Listener</h4>
                 <p className="text-sm text-warm/80">
-                  You buy a coffee. The bank sends a push notification. Autogate
-                  intercepts it within {"<"}10ms.
+                  You buy a coffee. The bank sends an SMS. AutoBudget&apos;s receiver
+                  catches it instantly — no notification access, no accessibility
+                  permissions, just a standard SMS listener.
                 </p>
               </div>
             </div>
@@ -180,9 +182,9 @@ export default function PhoneDemo() {
                   On-Device Categorization
                 </h4>
                 <p className="text-sm text-warm/80">
-                  llama.rn spins up. The local language model reads &quot;Starbucks
-                  ₹550&quot; and confidently tags it as &quot;Food &amp; Dining&quot;.
-                  No cloud required.
+                  The on-device rule engine reads &quot;Starbucks ₹550&quot; and
+                  matches it to &quot;Food &amp; Dining&quot; — deterministic,
+                  instant, no cloud required.
                 </p>
               </div>
             </div>
@@ -207,7 +209,8 @@ export default function PhoneDemo() {
         {/* Phone Side */}
         <div className="relative flex justify-center" style={{ perspective: "1000px" }}>
           <div className="phone-mockup" id="demo-phone">
-            <div className="phone-notch" />
+            <div className="phone-punchhole" />
+            <AndroidStatusBar />
 
             {/* App Interface */}
             <div className="absolute inset-0 pt-16 flex flex-col bg-[#090909]">
@@ -228,8 +231,8 @@ export default function PhoneDemo() {
                   </div>
                   <div className="w-10 h-10 rounded-full border border-white/10 bg-black1 flex items-center justify-center shadow-[0_0_15px_rgba(202,248,1,0.1)]">
                     <Image
-                      src="/autogate.png"
-                      alt="Autogate"
+                      src="/autobudget.png"
+                      alt="AutoBudget"
                       width={24}
                       height={24}
                       className="w-6 h-6 object-contain"
@@ -305,7 +308,7 @@ export default function PhoneDemo() {
                 </div>
               </div>
 
-              {/* Fake iOS Tab Bar */}
+              {/* Android bottom navigation bar */}
               <div className="absolute bottom-0 left-0 right-0 h-[70px] bg-[#090909]/95 backdrop-blur-xl border-t border-white/5 flex flex-row items-center justify-between px-8 pb-4 z-30">
                 <div className="relative">
                   <House className="w-5 h-5 text-lime fill-lime/20 cursor-pointer" />
@@ -320,14 +323,14 @@ export default function PhoneDemo() {
               </div>
             </div>
 
-            {/* Notification Overlay */}
+            {/* Incoming bank SMS — Android heads-up notification */}
             <div className="notification" id="push-notif">
-              <div className="w-8 h-8 rounded-lg bg-black1 flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(0,0,0,0.2)]">
-                <Building2 className="w-4 h-4 text-lime" />
+              <div className="w-8 h-8 rounded-full bg-black1 flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(0,0,0,0.2)]">
+                <MessageSquare className="w-4 h-4 text-lime" />
               </div>
               <div>
-                <p className="text-[11px] font-mono text-black1/70 uppercase tracking-widest mb-0.5 font-bold">
-                  HDFC BANK
+                <p className="text-[11px] font-mono text-black1/70 uppercase tracking-widest mb-0.5 font-bold flex items-center gap-1.5">
+                  HDFC-BANK <span className="font-medium normal-case">· SMS now</span>
                 </p>
                 <p className="text-[13px] font-medium leading-tight text-black1">
                   Transaction of ₹550 at{" "}
@@ -337,10 +340,10 @@ export default function PhoneDemo() {
               </div>
             </div>
 
-            {/* LLM Scanner Overlay */}
-            <div className="llm-engine-overlay" id="llm-engine">
+            {/* Rule-engine match toast */}
+            <div className="rule-engine-overlay" id="rule-engine">
               <div className="font-mono text-[11px] font-bold text-black1 bg-lime px-4 py-2 rounded-full flex items-center gap-2 shadow-[0_0_20px_rgba(202,248,1,0.3)]">
-                <span id="llm-text">Updating...</span>
+                <span id="rule-text">Matching…</span>
               </div>
             </div>
           </div>

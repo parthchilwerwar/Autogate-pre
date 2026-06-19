@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { REPO_URL } from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -9,13 +10,13 @@ export default function Footer() {
         className="flex items-center gap-3 no-underline hover:opacity-80 transition"
       >
         <Image
-          src="/autogate.png"
-          alt="Autogate"
+          src="/autobudget.png"
+          alt="AutoBudget"
           width={24}
           height={24}
           className="w-[24px] h-[24px] rounded-[6px] border border-white/10"
         />
-        <span className="font-serif text-[18px] text-cream">Autogate</span>
+        <span className="font-serif text-[18px] text-cream">AutoBudget</span>
       </a>
 
       <div className="flex flex-wrap justify-center items-center gap-6 font-mono text-[11px] uppercase tracking-widest">
@@ -25,13 +26,18 @@ export default function Footer() {
         <Link href="/terms" className="text-warm/50 hover:text-lime transition">
           Terms &amp; Conditions
         </Link>
-        <a href="#" className="text-warm/50 hover:text-lime transition">
+        <a
+          href={REPO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-warm/50 hover:text-lime transition"
+        >
           GitHub
         </a>
       </div>
 
       <span className="font-mono text-[10px] text-warm/20 uppercase tracking-widest">
-        © 2026 Autogate
+        © 2026 AutoBudget
       </span>
     </footer>
   );

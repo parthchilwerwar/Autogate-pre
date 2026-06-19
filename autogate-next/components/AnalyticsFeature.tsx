@@ -44,7 +44,7 @@ export default function AnalyticsFeature() {
             <span className="italic text-lime">perfect sense.</span>
           </h2>
           <p className="font-sans text-lg text-warm/70 leading-relaxed">
-            Spot trends before they break the bank. Autogate provides stunning,
+            Spot trends before they break the bank. AutoBudget provides stunning,
             instant visualizations of your spending habits calculated entirely on
             your device&apos;s secure local storage.
           </p>

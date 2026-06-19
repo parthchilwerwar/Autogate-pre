@@ -27,7 +27,7 @@ export function Meteors({
           <span
             key={idx}
             className={cn(
-              "animate-meteor-effect absolute h-[3px] w-[3px] rotate-[215deg] rounded-full bg-lime shadow-[0_0_10px_2px_rgba(202,248,1,0.55)]",
+              "animate-meteor-effect absolute h-[3px] w-[3px] rotate-[145deg] rounded-full bg-lime shadow-[0_0_10px_2px_rgba(202,248,1,0.55)]",
               "before:absolute before:top-1/2 before:h-px before:w-[80px] before:-translate-y-1/2 before:bg-gradient-to-r before:from-lime before:to-transparent before:content-['']",
               className
             )}

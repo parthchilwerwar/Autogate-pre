@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 
 // Aceternity UI — Spotlight. A blurred SVG ellipse that fades + drifts in via the
-// `animate-spotlight` keyframe (defined in globals.css). Tinted lime for Autogate.
+// `animate-spotlight` keyframe (defined in globals.css). Tinted lime for AutoBudget.
 export function Spotlight({
   className,
   fill = "#CAF801",

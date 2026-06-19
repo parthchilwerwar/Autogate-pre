@@ -33,9 +33,8 @@ export default function Hero() {
         id="eyebrow"
         className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-8 bg-lime/10 border border-lime/20"
       >
-        <div className="w-1.5 h-1.5 rounded-full bg-lime animate-pulse" />
         <span className="font-mono text-[10px] text-lime tracking-[0.14em]">
-          THE 100% LOCAL FINANCE TRACKER
+          WALLET TRACKER FOR ANDROID
         </span>
       </div>
 
@@ -52,8 +51,9 @@ export default function Hero() {
         id="hero-subtitle"
         className="relative z-10 font-sans text-[18px] md:text-[20px] leading-[1.7] max-w-[600px] mx-auto mb-10 text-warm"
       >
-        No cloud sync, no API keys, no monthly fees. Autogate uses native device
-        sensors and an on-device LLM to categorize every penny instantly.
+        No cloud sync, no API keys, no monthly fees. AutoBudget uses Android&apos;s
+        native SMS receiver and an instant on-device rule engine to categorize
+        every penny.
       </p>
 
       {/* Background glow for hero */}

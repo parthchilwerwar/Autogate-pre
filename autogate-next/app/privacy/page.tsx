@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { APK_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Autogate",
+  title: "Privacy Policy | AutoBudget",
 };
 
 export default function PrivacyPage() {
@@ -13,20 +14,20 @@ export default function PrivacyPage() {
       <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-[1200] flex items-center justify-between w-[min(90vw,600px)] h-14 px-4 rounded-full bg-black1/80 border border-white/10 backdrop-blur-xl">
         <Link href="/" className="flex items-center gap-2.5 text-cream no-underline">
           <Image
-            src="/autogate.png"
+            src="/autobudget.png"
             alt="Logo"
             width={28}
             height={28}
             className="w-7 h-7 object-contain rounded-lg"
           />
-          <span className="font-serif text-[18px]">Autogate</span>
+          <span className="font-serif text-[18px]">AutoBudget</span>
         </Link>
-        <Link
-          href="/#cta"
+        <a
+          href={APK_URL}
           className="inline-flex items-center font-sans text-[12px] font-bold px-5 py-2 rounded-full bg-lime text-black1 hover:-translate-y-0.5 transition"
         >
           Get the App
-        </Link>
+        </a>
       </nav>
 
       {/* CONTENT */}
@@ -44,7 +45,7 @@ export default function PrivacyPage() {
               1. The Anti-Data Collection Promise
             </h2>
             <p>
-              Autogate was built fundamentally to reject modern data hoarding.{" "}
+              AutoBudget was built fundamentally to reject modern data hoarding.{" "}
               <strong>
                 We do not collect, store, sell, or transmit any of your financial data
                 to external servers.
@@ -55,11 +56,11 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="font-serif text-3xl text-cream mb-4 border-b border-white/5 pb-2">
-              2. Local AI &amp; Edge Computing
+              2. On-Device Rule Engine
             </h2>
             <p>
-              Autogate utilizes quantized language models (`llama.rn`) that execute 100%
-              natively on your phone&rsquo;s CPU/NPU. Because categorization happens
+              AutoBudget categorizes transactions with a deterministic rule engine that
+              executes 100% natively on your phone. Because categorization happens
               strictly on-device, your transaction descriptions (e.g. &quot;Starbucks
               #499&quot;) never cross the internet.
             </p>
@@ -67,13 +68,14 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="font-serif text-3xl text-cream mb-4 border-b border-white/5 pb-2">
-              3. Reading Push Notifications
+              3. Reading Bank SMS
             </h2>
             <p>
-              We require the Android/iOS Notification Listener permission to intercept
-              bank notifications. We only parse notifications containing transaction
-              amounts using deterministic local rules. These notifications are read
-              dynamically and dropped from memory instantly after categorization.
+              We require a single Android SMS read permission to detect bank
+              transaction messages. We only parse SMS containing transaction amounts
+              using deterministic local rules. Messages are read in memory and dropped
+              instantly after categorization — no Notification Listener or Accessibility
+              access is ever requested.
             </p>
           </section>
 
@@ -83,7 +85,7 @@ export default function PrivacyPage() {
             </h2>
             <p>
               We may securely collect anonymous crash reports to resolve technical bugs
-              locally. This can be globally disabled at any point via the Autogate
+              locally. This can be globally disabled at any point via the AutoBudget
               settings tab.
             </p>
           </section>
@@ -93,7 +95,7 @@ export default function PrivacyPage() {
             <p className="font-mono text-sm text-warm/80">
               If you have any questions about this absolute privacy architecture, you
               can audit our Open Source Core logic on GitHub or contact
-              privacy@autogate.app.
+              privacy@autobudget.app.
             </p>
           </section>
         </div>
@@ -102,13 +104,13 @@ export default function PrivacyPage() {
       <footer className="flex flex-col md:flex-row items-center justify-between px-10 py-8 border-t border-white/5 text-center md:text-left gap-4 bg-black1">
         <Link href="/" className="flex items-center gap-3 no-underline">
           <Image
-            src="/autogate.png"
-            alt="Autogate"
+            src="/autobudget.png"
+            alt="AutoBudget"
             width={24}
             height={24}
             className="w-6 h-6 rounded-md"
           />
-          <span className="font-serif text-lg text-cream">Autogate</span>
+          <span className="font-serif text-lg text-cream">AutoBudget</span>
         </Link>
         <div className="flex items-center gap-6 font-mono text-[11px] uppercase tracking-widest">
           <Link href="/terms" className="text-warm/50 hover:text-lime transition">
